@@ -33,7 +33,7 @@ class FailureCaseAnalyzer:
     def load_all_data(self):
         """加载所有实验数据"""
         print("\n" + "="*60)
-        print("📂 加载实验数据...")
+        print(" 加载实验数据...")
         print("="*60)
         
         for model in self.models:
@@ -46,14 +46,14 @@ class FailureCaseAnalyzer:
                         self.all_data[model][method] = data
                         print(f"✓ 加载: {model}_{method}")
                 else:
-                    print(f"⚠️  文件不存在: {json_file}")
+                    print(f"  文件不存在: {json_file}")
         
-        print(f"\n✅ 加载完成: {len(self.models)}个模型 × {len(self.methods)}个方法")
+        print(f"\n 加载完成: {len(self.models)}个模型 × {len(self.methods)}个方法")
     
     def identify_failure_samples(self):
         """识别失败样本"""
         print("\n" + "="*60)
-        print("🔍 识别失败样本...")
+        print("识别失败样本...")
         print("="*60)
         
         # 使用ResNet18作为代表模型进行分析
@@ -105,7 +105,7 @@ class FailureCaseAnalyzer:
                 })
         
         # 统计
-        print(f"\n📊 失败样本统计:")
+        print(f"\ 失败样本统计:")
         print(f"  • 硬样本（所有方法都失败）: {len(self.hard_samples)} ({len(self.hard_samples)/num_samples*100:.1f}%)")
         print(f"  • 部分失败样本: {len(self.partial_failure_samples)} ({len(self.partial_failure_samples)/num_samples*100:.1f}%)")
         print(f"  • 易攻击样本（所有方法都成功）: {num_samples - len(self.hard_samples) - len(self.partial_failure_samples)}")
@@ -117,7 +117,7 @@ class FailureCaseAnalyzer:
         print("="*60)
         
         if len(self.hard_samples) == 0:
-            print("⚠️  没有找到硬样本（所有样本至少被一种方法成功攻击）")
+            print("  没有找到硬样本（所有样本至少被一种方法成功攻击）")
             return None
         
         print(f"\n找到 {len(self.hard_samples)} 个硬样本")
@@ -135,7 +135,7 @@ class FailureCaseAnalyzer:
     def analyze_method_specific_failures(self):
         """分析方法特定的失败模式"""
         print("\n" + "="*60)
-        print("📊 分析方法特定失败模式...")
+        print("分析方法特定失败模式...")
         print("="*60)
         
         # 统计每个方法的失败次数
@@ -168,7 +168,7 @@ class FailureCaseAnalyzer:
     def analyze_success_patterns(self):
         """分析成功模式"""
         print("\n" + "="*60)
-        print("✅ 分析成功模式...")
+        print(" 分析成功模式...")
         print("="*60)
         
         # 在部分失败样本中，哪些方法最可靠？
@@ -189,7 +189,7 @@ class FailureCaseAnalyzer:
     def generate_visualizations(self):
         """生成可视化"""
         print("\n" + "="*60)
-        print("📈 生成可视化...")
+        print(" 生成可视化...")
         print("="*60)
         
         # 1. 失败样本分布
@@ -201,7 +201,7 @@ class FailureCaseAnalyzer:
         # 3. 成功率vs难度
         self._plot_difficulty_distribution()
         
-        print("✓ 所有可视化已生成")
+        print("所有可视化已生成")
     
     def _plot_failure_distribution(self):
         """绘制失败样本分布"""
@@ -357,12 +357,12 @@ class FailureCaseAnalyzer:
         plt.savefig(self.output_dir / 'difficulty_distribution.png', dpi=300, bbox_inches='tight')
         plt.savefig(self.output_dir / 'difficulty_distribution.pdf', bbox_inches='tight')
         plt.close()
-        print("  ✓ difficulty_distribution.pdf")
+        print("  difficulty_distribution.pdf")
     
     def generate_report(self):
         """生成分析报告"""
         print("\n" + "="*60)
-        print("📝 生成分析报告...")
+        print(" 生成分析报告...")
         print("="*60)
         
         report = f"""# 失败案例分析报告
@@ -395,10 +395,10 @@ class FailureCaseAnalyzer:
 """
         
         if len(self.hard_samples) == 0:
-            report += "✅ **没有发现硬样本**！所有100个样本都至少被一种方法成功攻击。\n"
+            report += " **没有发现硬样本**！所有100个样本都至少被一种方法成功攻击。\n"
             report += "这表明：当前的5种攻击方法已经能够覆盖ResNet18的大部分决策空间。\n\n"
         else:
-            report += f"⚠️ **发现{len(self.hard_samples)}个硬样本**！这些样本对所有攻击方法都免疫。\n"
+            report += f" **发现{len(self.hard_samples)}个硬样本**！这些样本对所有攻击方法都免疫。\n"
             report += f"占比：{len(self.hard_samples)}%\n"
             report += f"样本ID：{[s['sample_id'] for s in self.hard_samples[:10]]}\n\n"
         
@@ -513,56 +513,6 @@ class FailureCaseAnalyzer:
                 else:
                     value = "低"
                 report += f"| {methods_display[method]} | {count} | {rate:.1f}% | {value} |\n"
-            
-            report += "\n**互补性结论:**\n"
-            report += "- 不同方法在不同样本上有不同的成功率\n"
-            report += "- **组合使用**多种方法可以提高整体攻击成功率\n"
-            report += "- 建议：优先尝试成功率最高的方法，失败后尝试互补方法\n\n"
-        
-        report += "---\n\n## 6. 研究启示\n\n"
-        report += "### 6.1 对攻击方法的启示\n"
-        report += "1. **方法组合:** 不同方法有不同失败模式，组合使用可以提高成功率\n"
-        report += "2. **自适应选择:** 可以根据样本特征自动选择最适合的方法\n"
-        report += "3. **失败恢复:** 设计能够从局部最优逃逸的机制\n\n"
-        
-        report += "### 6.2 对防御研究的启示\n"
-        report += "1. **鲁棒样本特征:** 分析硬样本的共同特征可以指导防御设计\n"
-        report += "2. **决策边界优化:** 增加决策边界的复杂度可能提高鲁棒性\n"
-        report += "3. **置信度校准:** 高置信度预测似乎对应更强的鲁棒性\n\n"
-        
-        report += "### 6.3 论文价值\n"
-        report += "- ✅ 首次系统分析L0攻击的失败模式\n"
-        report += "- ✅ 揭示不同方法的互补性\n"
-        report += "- ✅ 为组合攻击策略提供理论基础\n"
-        report += "- ✅ 为防御研究提供新视角\n\n"
-        
-        report += "---\n\n## 7. 可视化索引\n\n"
-        report += "本分析生成了3张图表：\n\n"
-        report += "1. **failure_distribution.pdf** - 失败样本分布\n"
-        report += "   - 样本分类（硬/部分/易）\n"
-        report += "   - 成功方法数量分布\n\n"
-        report += "2. **method_failure_rates.pdf** - 方法失败率对比\n"
-        report += "   - 横向对比各方法的失败率\n\n"
-        report += "3. **difficulty_distribution.pdf** - 难度分布\n"
-        report += "   - 按成功方法数显示样本分布\n"
-        report += "   - 颜色编码难度级别\n\n"
-        
-        report += "---\n\n## 8. 下一步工作建议\n\n"
-        report += "1. **硬样本深入分析:**\n"
-        report += "   - 可视化硬样本图像\n"
-        report += "   - 分析其类别分布\n"
-        report += "   - 测量预测置信度\n\n"
-        report += "2. **失败原因验证:**\n"
-        report += "   - 计算梯度范数\n"
-        report += "   - 测量到决策边界的距离\n"
-        report += "   - 分析类别语义相似性\n\n"
-        report += "3. **组合攻击实验:**\n"
-        report += "   - 设计方法组合策略\n"
-        report += "   - 测试在硬样本上的效果\n\n"
-        
-        report += f"\n---\n\n*报告生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n"
-        
-        # 保存报告
         report_file = self.output_dir / 'failure_analysis_report.md'
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(report)
@@ -573,9 +523,8 @@ class FailureCaseAnalyzer:
     
     def run_complete_analysis(self):
         """运行完整分析"""
-        print("\n" + "🚀"*30)
+        print("\n" + ""*30)
         print("失败案例分析")
-        print("🚀"*30)
         
         # 1. 加载数据
         self.load_all_data()
@@ -588,34 +537,30 @@ class FailureCaseAnalyzer:
         
         # 4. 分析方法特定失败
         method_stats = self.analyze_method_specific_failures()
-        
-        # 5. 分析成功模式
+     
         success_stats = self.analyze_success_patterns()
-        
-        # 6. 生成可视化
+     
         self.generate_visualizations()
-        
-        # 7. 生成报告
+      
         report = self.generate_report()
         
         # 最终总结
-        print("\n" + "🎉"*30)
+        print("\n" + ""*30)
         print("失败案例分析完成！")
-        print("🎉"*30)
         
-        print(f"\n📁 生成的文件:")
+        print(f"\n 生成的文件:")
         print(f"  1. {self.output_dir / 'failure_analysis_report.md'}")
         print(f"  2. {self.output_dir / 'failure_distribution.pdf'}")
         print(f"  3. {self.output_dir / 'method_failure_rates.pdf'}")
         print(f"  4. {self.output_dir / 'difficulty_distribution.pdf'}")
         
-        print(f"\n📊 关键发现:")
+        print(f"\n 关键发现:")
         print(f"  • 硬样本数量: {len(self.hard_samples)}")
         print(f"  • 部分失败样本: {len(self.partial_failure_samples)}")
         print(f"  • 易攻击样本: {100 - len(self.hard_samples) - len(self.partial_failure_samples)}")
         
         if len(self.hard_samples) == 0:
-            print(f"\n✨ **重要发现**: 没有硬样本！所有样本都至少被一种方法成功攻击！")
+            print(f"\n **重要发现**: 没有硬样本！所有样本都至少被一种方法成功攻击！")
             print(f"   这表明5种方法的组合已经能够覆盖大部分攻击场景。")
 
 def main():
