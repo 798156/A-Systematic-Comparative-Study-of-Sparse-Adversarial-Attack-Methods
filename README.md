@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > **基于论文**: *A Systematic Comparative Study of Sparse Adversarial Attack Methods*  
-> **研究目标**: 首个L0稀疏对抗攻击方法的系统性比较基准
+> **研究目标**: L0稀疏对抗攻击方法的系统性比较基准
 
 ---
 
