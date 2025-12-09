@@ -4,7 +4,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.13+-red.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **基于论文**: *A Comprehensive Comparison of Sparse Adversarial Attack Methods: Effectiveness, Efficiency, and Robustness Analysis*  
+> **基于论文**: *A Systematic Comparative Study of Sparse Adversarial Attack Methods*  
 > **研究目标**: 首个L0稀疏对抗攻击方法的系统性比较基准
 
 ---
