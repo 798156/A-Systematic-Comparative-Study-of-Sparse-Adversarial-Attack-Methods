@@ -36,7 +36,7 @@
 - **评估方法**: 5种代表性L0攻击方法（JSMA、SparseFool、Greedy、PixelGrad、RandomSparse）
 - **测试模型**: 6个模型（3个标准模型 + 3个防御模型）
   - 标准模型: ResNet18, VGG16, MobileNetV2
-  - 防御模型: 来自RobustBench的对抗训练模型
+  - 防御模型: Standard (RobustBench)，Engstrom2019Robustness，Rice2020Overfitting (TRADES)
 - **评估维度**: 攻击效果、计算效率、参数稳定性、防御鲁棒性
 - **测试规模**: 1500+ 对抗样本，涵盖CIFAR-10全部10个类别
 - **数据集**: CIFAR-10 (主要), 扩展支持其他数据集
