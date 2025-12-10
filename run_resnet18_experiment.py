@@ -1,11 +1,5 @@
 """
-ResNet18完整实验 - Week 1 Day 1
-专门为方案B优化
-
-目标：
-- 100样本完整测试
-- 所有攻击方法对比
-- 自动保存结果和图表
+ResNet18完整实验
 """
 
 import torch
@@ -17,7 +11,7 @@ import time
 import os
 import json
 import matplotlib
-matplotlib.use('Agg')  # 避免Qt错误
+matplotlib.use('Agg')  
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -46,7 +40,7 @@ def run_resnet18_experiment(num_samples=100, max_pixels=10):
     """运行ResNet18完整实验"""
     
     print("=" * 80)
-    print("🚀 ResNet18完整实验 - Week 1 Day 1")
+    print(" ResNet18完整实验 - Week 1 Day 1")
     print("=" * 80)
     print(f"\n配置:")
     print(f"  模型: ResNet18 (准确率 ~85%)")
@@ -59,7 +53,7 @@ def run_resnet18_experiment(num_samples=100, max_pixels=10):
     print(f"\n使用设备: {device}")
     
     # 加载数据
-    print("\n📦 加载数据...")
+    print("\n 加载数据...")
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
@@ -88,7 +82,7 @@ def run_resnet18_experiment(num_samples=100, max_pixels=10):
         results['RL V2'] = {'success': [], 'l0': [], 'l2': [], 'ssim': [], 'psnr': [], 'time': []}
     
     # 收集正确分类的样本
-    print("\n🔍 收集正确分类的样本...")
+    print("\n 收集正确分类的样本...")
     correct_samples = []
     
     for idx, (images, labels) in enumerate(testloader):
@@ -104,15 +98,15 @@ def run_resnet18_experiment(num_samples=100, max_pixels=10):
             if pred == labels.item():
                 correct_samples.append((images[0], labels.item()))
     
-    print(f"✅ 收集到 {len(correct_samples)} 个正确分类的样本\n")
+    print(f" 收集到 {len(correct_samples)} 个正确分类的样本\n")
     
     if len(correct_samples) < num_samples:
-        print(f"⚠️ 警告：只找到 {len(correct_samples)} 个正确分类样本")
+        print(f" 警告：只找到 {len(correct_samples)} 个正确分类样本")
         num_samples = len(correct_samples)
     
     # 开始实验
     print("=" * 80)
-    print("🧪 开始攻击实验")
+    print(" 开始攻击实验")
     print("=" * 80)
     
     for idx, (image, label) in enumerate(tqdm(correct_samples, desc="实验进度")):
@@ -348,14 +342,14 @@ def run_resnet18_experiment(num_samples=100, max_pixels=10):
     plt.savefig(f"{output_dir}/l0_comparison.png", dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"✅ 结果保存在: {output_dir}/")
+    print(f" 结果保存在: {output_dir}/")
     print(f"  - resnet18_summary.json")
     print(f"  - resnet18_*.csv")
     print(f"  - asr_comparison.png")
     print(f"  - l0_comparison.png")
     
     print("\n" + "=" * 80)
-    print("🎉 ResNet18实验完成！")
+    print(" ResNet18实验完成！")
     print("=" * 80)
     
     return summary, results
@@ -364,16 +358,3 @@ def run_resnet18_experiment(num_samples=100, max_pixels=10):
 if __name__ == "__main__":
     # 运行实验
     summary, results = run_resnet18_experiment(num_samples=100, max_pixels=10)
-    
-    print("\n" + "=" * 80)
-    print("✅ Day 1任务完成！")
-    print("=" * 80)
-    print("""
-明天任务预告（Day 2）：
-1. 训练VGG16模型
-2. 运行VGG16实验
-3. 对比ResNet18 vs VGG16
-
-休息一下，明天继续加油！🚀
-    """)
-
