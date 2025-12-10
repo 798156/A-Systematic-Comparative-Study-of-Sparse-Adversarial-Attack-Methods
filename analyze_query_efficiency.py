@@ -60,7 +60,7 @@ class QueryEfficiencyAnalyzer:
     def load_all_data(self):
         """加载所有实验数据"""
         print("\n" + "="*60)
-        print("📂 加载实验数据...")
+        print("加载实验数据...")
         print("="*60)
         
         for model in self.models:
@@ -73,12 +73,12 @@ class QueryEfficiencyAnalyzer:
                         self.all_data[model][method] = data
                         print(f"✓ 加载: {model}_{method}")
         
-        print("✅ 加载完成")
+        print("加载完成")
     
     def analyze_time_statistics(self):
         """分析时间统计"""
         print("\n" + "="*60)
-        print("⏱️  分析时间统计...")
+        print("分析时间统计...")
         print("="*60)
         
         time_stats = {}
@@ -112,7 +112,7 @@ class QueryEfficiencyAnalyzer:
     def calculate_query_estimates(self, time_stats):
         """估算查询次数"""
         print("\n" + "="*60)
-        print("🔢 估算查询次数...")
+        print("估算查询次数...")
         print("="*60)
         
         query_stats = {}
@@ -156,7 +156,7 @@ class QueryEfficiencyAnalyzer:
     def analyze_efficiency_tradeoff(self, time_stats):
         """分析效率权衡"""
         print("\n" + "="*60)
-        print("⚖️  分析效率权衡...")
+        print("分析效率权衡...")
         print("="*60)
         
         # 使用ResNet18作为主要分析对象
@@ -182,7 +182,7 @@ class QueryEfficiencyAnalyzer:
     def generate_visualizations(self, time_stats, tradeoff_data):
         """生成可视化"""
         print("\n" + "="*60)
-        print("📈 生成可视化...")
+        print("生成可视化...")
         print("="*60)
         
         # 1. 时间对比柱状图
@@ -306,7 +306,7 @@ class QueryEfficiencyAnalyzer:
     def generate_report(self, time_stats, query_stats, tradeoff_data):
         """生成分析报告"""
         print("\n" + "="*60)
-        print("📝 生成分析报告...")
+        print("生成分析报告...")
         print("="*60)
         
         report = f"""# 查询效率分析报告
@@ -339,10 +339,10 @@ class QueryEfficiencyAnalyzer:
         
         for rank, (method, time) in enumerate(sorted_methods, 1):
             name = self.method_names[method]
-            if rank == 1:
-                report += f"{rank}. **{name}:** {time:.3f}s ⚡ 最快\n"
+            if rank == 1
+                report += f"{rank}. **{name}:** {time:.3f}s 最快\n"
             elif rank == len(sorted_methods):
-                report += f"{rank}. **{name}:** {time:.3f}s 🐌 最慢\n"
+                report += f"{rank}. **{name}:** {time:.3f}s 最慢\n"
             else:
                 report += f"{rank}. **{name}:** {time:.3f}s\n"
         
@@ -424,9 +424,8 @@ class QueryEfficiencyAnalyzer:
     
     def run_complete_analysis(self):
         """运行完整分析"""
-        print("\n" + "🎯"*30)
         print("查询效率分析")
-        print("🎯"*30)
+       
         
         # 1. 加载数据
         self.load_all_data()
@@ -446,11 +445,9 @@ class QueryEfficiencyAnalyzer:
         # 6. 生成报告
         self.generate_report(time_stats, query_stats, tradeoff_data)
         
-        print("\n" + "🎉"*30)
         print("查询效率分析完成！")
-        print("🎉"*30)
         
-        print(f"\n📁 结果保存在: {self.output_dir}")
+        print(f"\n 结果保存在: {self.output_dir}")
         print("\n生成的文件:")
         print("  1. query_efficiency_report.md - 完整分析报告")
         print("  2. time_comparison.pdf - 时间对比图")
